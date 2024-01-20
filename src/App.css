@@ -1,23 +1,11 @@
 .App {
   text-align: center;
-}
-
-
-
-@media (prefers-reduced-motion: no-preference) {
-  
-}
-
-.header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  display:flex;
+  align-items:column;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  flex-direction:row;
 }
+
 
 .xmastree {
   height:85vh;
@@ -25,4 +13,9 @@
 
 .decorations {
   height:10vh;
+}
+
+.decorationsbox {
+  height:100vh;
+  width:100vw;
 }
