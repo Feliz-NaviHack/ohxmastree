@@ -1,22 +1,15 @@
-import logo from './logo.svg';
+import logo from './images/christmas-tree-vector-transparent-bg.png';
 import './App.css';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
+    <div className="app">
+      <header className="header">
+        <img src={logo} className="xmastree" alt="Xmas Tree" />
         <p>
-          Edit <code>src/App.js</code> and save to reload.
+          Decorate the Xmas Tree!
         </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+      
       </header>
     </div>
   );
