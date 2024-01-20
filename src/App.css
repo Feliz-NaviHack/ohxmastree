@@ -32,6 +32,9 @@
 }
 
 h1 {
+  position: fixed;
+  top: 0;
+  margin: auto;
   display:block;
 }
 
