@@ -30,7 +30,7 @@ function App() {
     return {};
   };
   const [positions, setPositions] = useState(getInitialPositions());
-  const [positionsString, setPositionsString] = useState("");
+  // const [positionsString, setPositionsString] = useState("");
 
   const imageMap = {
     blue: blueImage,
@@ -60,7 +60,7 @@ function App() {
 
   const handleSharePositions = () => {
     const newPositionsString = JSON.stringify(positions);
-    setPositionsString(newPositionsString);
+    // setPositionsString(newPositionsString);
     const encodedPositions = encodeURIComponent(newPositionsString);
     window.history.pushState(null, null, `?positions=${encodedPositions}`);
   };
@@ -115,7 +115,7 @@ function App() {
           </div>
   
           {/* Button to share positions */}
-          <button onClick={handleSharePositions}>Share Positions</button>
+          <button onClick={handleSharePositions}>Share Your Decorations link!</button>
   
           {/* Display positions string in a dedicated p tag */}
           {/* <p className="positionstring">{positionsString}</p> */}
