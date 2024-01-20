@@ -3,7 +3,6 @@ import Draggable from "react-draggable";
 import useSound from "use-sound";
 import twinkle from "./sounds/twinkle.mp3";
 import woocrowd from "./sounds/woocrowd.mp3";
-
 import tree from "./images/christmas-tree-vector-transparent-bg.png";
 import blueImage from "./images/decoration_blue.png";
 import greenImage from "./images/decoration_green.png";
@@ -16,7 +15,21 @@ import starImage from "./images/star.png";
 import "./App.css";
 
 function App() {
-  const [positions, setPositions] = useState({});
+
+  const getInitialPositions = () => {
+    const queryParams = new URLSearchParams(window.location.search);
+    const positionsFromURL = queryParams.get('positions');
+    if (positionsFromURL) {
+      try {
+        return JSON.parse(decodeURIComponent(positionsFromURL));
+      } catch (error) {
+        console.error('Error parsing positions from URL', error);
+        return {};
+      }
+    }
+    return {};
+  };
+  const [positions, setPositions] = useState(getInitialPositions());
   const [positionsString, setPositionsString] = useState("");
 
   const imageMap = {
@@ -48,12 +61,17 @@ function App() {
   const handleSharePositions = () => {
     const newPositionsString = JSON.stringify(positions);
     setPositionsString(newPositionsString);
+    const encodedPositions = encodeURIComponent(newPositionsString);
+    window.history.pushState(null, null, `?positions=${encodedPositions}`);
   };
+  
 
-  const [playSound, { sound, status }] = useSound(twinkle, { volume: 0.5 });
+  const [playSound, {sound, status}]  = useSound(twinkle, { volume: 1 });
   console.log('playSound:', playSound);
   console.log('sound:', sound);
   console.log('status:', status);
+  
+
   
 
   return (
@@ -63,48 +81,42 @@ function App() {
         <img src={tree} className="xmastree" alt="Xmas Tree" />
         <div className="decorationsbox">
           <Draggable
-            onStop={() => handleStop(woocrowd)}
+            defaultPosition={positions['star'] || {x: 0, y: 0}}
+            onStop={() => handleStop("star")}
             onDrag={(e, data) => handleDrag(e, data, "star")}
           >
             <div>
-              <img
-                id="star"
-                src={starImage}
-                className="decorations"
-                alt="Xmas Decoration"
-              />
+              <img src={starImage} className="decorations" alt="Xmas Decoration" />
             </div>
           </Draggable>
-
+  
           <div className="decorationssubdivider">
             {[1, 2, 3, 4, 5].map((group) => (
               <div className={`decorations${group}`} key={group}>
                 {["blue", "orange", "purple", "green", "red", "turquoise"].map(
-                  (color) => (
-                    <Draggable
-                      key={`${color}_${group}`}
-                      onStop={() => handleStop(`${color}_${group}`)}
-                      onDrag={(e, data) =>
-                        handleDrag(e, data, `${color}_${group}`)
-                      }
-                    >
-                      <div>
-                        <img
-                          src={imageMap[color]}
-                          className="decorations"
-                          alt="Xmas Decoration"
-                        />
-                      </div>
-                    </Draggable>
-                  )
+                  (color) => {
+                    const id = `${color}_${group}`;
+                    return (
+                      <Draggable
+                        key={id}
+                        defaultPosition={positions[id] || {x: 0, y: 0}}
+                        onStop={() => handleStop(id)}
+                        onDrag={(e, data) => handleDrag(e, data, id)}
+                      >
+                        <div>
+                          <img src={imageMap[color]} className="decorations" alt="Xmas Decoration" />
+                        </div>
+                      </Draggable>
+                    );
+                  }
                 )}
               </div>
             ))}
           </div>
-
+  
           {/* Button to share positions */}
           <button onClick={handleSharePositions}>Share Positions</button>
-
+  
           {/* Display positions string in a dedicated p tag */}
           <p className="positionstring">{positionsString}</p>
         </div>
