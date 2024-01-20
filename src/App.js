@@ -15,27 +15,33 @@ import './App.css';
 function App() {
   return (
     
-      <div>
-    <img src={tree} className="xmastree" alt="Xmas Tree"/>
-    <Draggable className="bluedrag">
-    <div><img src={blue} className="decorations" alt="Xmas Decoration"/></div>
-    </Draggable>
-    <Draggable className="bluedrag">
-    <div><img src={orange} className="decorations" alt="Xmas Decoration"/></div>
-    </Draggable>
-    <Draggable className="bluedrag">
-    <div><img src={purple} className="decorations" alt="Xmas Decoration"/></div>
-    </Draggable>
-    <Draggable className="bluedrag">
-    <div><img src={green} className="decorations" alt="Xmas Decoration"/></div>
-    </Draggable>
-    <Draggable className="bluedrag">
-    <div><img src={red} className="decorations" alt="Xmas Decoration"/></div>
-    </Draggable>
-    <Draggable className="bluedrag">
-    <div><img src={turquoise} className="decorations" alt="Xmas Decoration"/></div>
-    </Draggable>
+    <div className="App">
+      <div className="main">
+      <img src={tree} className="xmastree" alt="Xmas Tree"/>
+      <div className="decorationsbox">
+      <p>this is the decorations box</p>
+        <Draggable className="bluedrag">
+          <div><img src={blue} className="decorations" alt="Xmas Decoration"/></div>
+        </Draggable>
+        <Draggable className="orangedrag">
+          <div><img src={orange} className="decorations" alt="Xmas Decoration"/></div>
+        </Draggable>
+        <Draggable className="purpledrag">
+          <div><img src={purple} className="decorations" alt="Xmas Decoration"/></div>
+        </Draggable>
+        <Draggable className="greendrag">
+          <div><img src={green} className="decorations" alt="Xmas Decoration"/></div>
+        </Draggable>
+        <Draggable className="reddrag">
+          <div><img src={red} className="decorations" alt="Xmas Decoration"/></div>
+        </Draggable>
+        <Draggable className="turquoisedrag">
+          <div><img src={turquoise} className="decorations" alt="Xmas Decoration"/></div>
+        </Draggable>
     </div>
+    </div>
+    </div>
+  
 
   );
 }
