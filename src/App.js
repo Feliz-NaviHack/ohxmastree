@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import Draggable from "react-draggable";
-// import useSound from "use-sound";
-// import twinkle from "./sounds/twinkle.mp3";
-// import woocrowd from "./sounds/woocrowd.mp3";
+import useSound from "use-sound";
+import twinkle from "./sounds/twinkle.mp3";
+import woocrowd from "./sounds/woocrowd.mp3";
 
 import tree from "./images/christmas-tree-vector-transparent-bg.png";
 import blueImage from "./images/decoration_blue.png";
@@ -19,7 +19,6 @@ function App() {
   const [positions, setPositions] = useState({});
   const [positionsString, setPositionsString] = useState("");
 
-  // Object mapping color names to image sources
   const imageMap = {
     blue: blueImage,
     green: greenImage,
@@ -37,11 +36,25 @@ function App() {
     }));
   };
 
+  const handleStop = (id) => {
+    // Play sound when dragging stops
+    if (id === "star") {
+      playSound(woocrowd);
+    } else {
+      playSound(twinkle);
+    }
+  };
+
   const handleSharePositions = () => {
-    // Convert positions object to a string (you can adjust the format as needed)
     const newPositionsString = JSON.stringify(positions);
     setPositionsString(newPositionsString);
   };
+
+  const [playSound, {sound, status}]  = useSound('', { volume: 1 });
+  console.log('playSound:', playSound);
+  console.log('sound:', sound);
+  console.log('status:', status);
+  
 
   return (
     <div className="App">
@@ -49,7 +62,10 @@ function App() {
         <h1>Decorate the Christmas Tree!</h1>
         <img src={tree} className="xmastree" alt="Xmas Tree" />
         <div className="decorationsbox">
-          <Draggable onDrag={(e, data) => handleDrag(e, data, "star")}>
+          <Draggable
+            onStop={() => handleStop("star")}
+            onDrag={(e, data) => handleDrag(e, data, "star")}
+          >
             <div>
               <img
                 src={starImage}
@@ -66,8 +82,7 @@ function App() {
                   (color) => (
                     <Draggable
                       key={`${color}_${group}`}
-                      // onStart={useSound(woocrowd)}
-                      // onStop={useSound(twinkle)}
+                      onStop={() => handleStop(`${color}_${group}`)}
                       onDrag={(e, data) =>
                         handleDrag(e, data, `${color}_${group}`)
                       }
@@ -90,7 +105,7 @@ function App() {
           <button onClick={handleSharePositions}>Share Positions</button>
 
           {/* Display positions string in a dedicated p tag */}
-          <p>{positionsString}</p>
+          <p className="positionstring">{positionsString}</p>
         </div>
       </div>
     </div>
