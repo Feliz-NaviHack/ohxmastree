@@ -118,7 +118,7 @@ function App() {
           <button onClick={handleSharePositions}>Share Positions</button>
   
           {/* Display positions string in a dedicated p tag */}
-          <p className="positionstring">{positionsString}</p>
+          {/* <p className="positionstring">{positionsString}</p> */}
         </div>
       </div>
     </div>
