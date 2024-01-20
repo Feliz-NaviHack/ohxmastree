@@ -50,7 +50,7 @@ function App() {
     setPositionsString(newPositionsString);
   };
 
-  const [playSound, {sound, status}]  = useSound('', { volume: 1 });
+  const [playSound, { sound, status }] = useSound(twinkle, { volume: 0.5 });
   console.log('playSound:', playSound);
   console.log('sound:', sound);
   console.log('status:', status);
@@ -63,11 +63,12 @@ function App() {
         <img src={tree} className="xmastree" alt="Xmas Tree" />
         <div className="decorationsbox">
           <Draggable
-            onStop={() => handleStop("star")}
+            onStop={() => handleStop(woocrowd)}
             onDrag={(e, data) => handleDrag(e, data, "star")}
           >
             <div>
               <img
+                id="star"
                 src={starImage}
                 className="decorations"
                 alt="Xmas Decoration"
